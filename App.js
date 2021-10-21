@@ -3,19 +3,27 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
-  const [outputText, setOutputText] = useState('Hello React Native!')
+  const [enteredGoal, setEnteredGoal] = useState('')
+  const [courseGoal, setCourseGoal] = useState([])
+
+  const goalInputHandler = enteredText => {
+    setEnteredGoal(enteredText)
+  }
+
+  const addGoalHandler = () => {
+    console.log(enteredGoal)
+    setCourseGoal(currentGoal => [...currentGoal, enteredGoal])
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.viewOne}>
-        <Text>1</Text>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.input} placeholder='your goal' onChangeText={goalInputHandler} value={enteredGoal} />
+        <Button title='ADD' onPress={addGoalHandler} />
       </View>
-
-      <View style={styles.viewTwo}>
-        <Text>2</Text>
-      </View>
-
-      <View style={styles.viewThree}>
-        <Text>3</Text>
+      <View>
+        {
+          courseGoal.map(goal => <View style={styles.goalView} key={goal}><Text style={styles.txt}>{goal}</Text></View>)
+        }
       </View>
     </View>
   );
@@ -24,26 +32,26 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     padding: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
   },
-  viewOne: {
-    backgroundColor: 'red',
-    height: 100,
-    width: 100,
-    // flex: 1
+  inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
+  }, 
+  input: {
+    borderColor:'black', padding: 10, borderWidth: 2, marginRight: '10px'
   },
-  viewTwo: {
-    backgroundColor: 'blue',
-    height: 100,
-    width: 100,
-    // flex: 3
+  goalView: {
+    border: '2px solid black',
+    backgroundColor: 'lightgrey', 
+    padding: 10,
+    marginVertical: 10, 
+    width: '25%',
+    color: 'white'
   },
-  viewThree: {
-    backgroundColor: 'green',
-    height: 100,
-    width: 100,
+  txt: {
+    fontWeight: 700,
+    textTransform: 'capitalize'
   }
 });
 
