@@ -16,7 +16,7 @@ export default function App() {
       <View style={styles.container}>
       <GoalInput onAddGoal={addGoalHandler} />
       <FlatList data={courseGoal} renderItem={itemData => (
-          <GoalItem itemData={itemData.item.value} />
+          <GoalItem itemData={itemData.item.value} onDelete={() => console.log('does that work?')} />
       )} />
     </View>
     </ScrollView>
